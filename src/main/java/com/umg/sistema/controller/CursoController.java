@@ -25,8 +25,12 @@ public class CursoController {
         return ResponseEntity.ok(service.getById(codigoCurso));
     }
 
+    // ✅ Ahora acepta filtro opcional por nombre
     @GetMapping
-    public ResponseEntity<List<CursoDTO>> getAll() {
+    public ResponseEntity<List<CursoDTO>> getAll(@RequestParam(required = false) String nombre) {
+        if (nombre != null && !nombre.isEmpty()) {
+            return ResponseEntity.ok(service.getByNombre(nombre));
+        }
         return ResponseEntity.ok(service.getAll());
     }
 

@@ -51,6 +51,15 @@ public class CursoServiceImpl implements CursoService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<CursoDTO> getByNombre(String nombre) {
+        return repository.findByNombreContainingIgnoreCase(nombre)
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    // --- Métodos de conversión ---
     private CursoDTO toDTO(Curso curso) {
         CursoDTO dto = new CursoDTO();
         dto.setCodigoCurso(curso.getCodigoCurso());

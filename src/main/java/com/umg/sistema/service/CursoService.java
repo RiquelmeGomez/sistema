@@ -9,4 +9,7 @@ public interface CursoService {
     void delete(String codigoCurso);
     CursoDTO getById(String codigoCurso);
     List<CursoDTO> getAll();
+
+    // Nuevo método para filtrar por nombre
+    List<CursoDTO> getByNombre(String nombre);
 }

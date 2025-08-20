@@ -1,6 +1,8 @@
 package com.umg.sistema.service;
 
 import com.umg.sistema.dto.ProfesorDTO;
+import com.umg.sistema.entities.Profesor;
+
 import java.util.List;
 
 public interface ProfesorService {
@@ -9,4 +11,6 @@ public interface ProfesorService {
     void delete(String codigo);
     ProfesorDTO getById(String codigo);
     List<ProfesorDTO> getAll();
+
+    List<ProfesorDTO> getByNombre(String nombre); // nuevo método de filtrado
 }

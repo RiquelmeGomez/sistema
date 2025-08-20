@@ -17,6 +17,7 @@ public class ProfesorServiceImpl implements ProfesorService {
     @Autowired
     private ProfesorRepository repository;
 
+    // Métodos de conversión Entity <-> DTO
     private ProfesorDTO toDTO(Profesor entity) {
         ProfesorDTO dto = new ProfesorDTO();
         dto.setCodigoProfesor(entity.getCodigoProfesor());
@@ -35,8 +36,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     @Override
     public ProfesorDTO create(ProfesorDTO dto) {
-        Profesor saved = repository.save(toEntity(dto));
-        return toDTO(saved);
+        return toDTO(repository.save(toEntity(dto)));
     }
 
     @Override
@@ -60,5 +60,13 @@ public class ProfesorServiceImpl implements ProfesorService {
     @Override
     public List<ProfesorDTO> getAll() {
         return repository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProfesorDTO> getByNombre(String nombre) {
+        return repository.findByNombreCompletoContainingIgnoreCase(nombre)
+                         .stream()
+                         .map(this::toDTO)
+                         .collect(Collectors.toList());
     }
 }

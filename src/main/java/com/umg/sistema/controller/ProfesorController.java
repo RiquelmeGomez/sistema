@@ -26,8 +26,12 @@ public class ProfesorController {
         return ResponseEntity.ok(service.getById(codigo));
     }
 
+    // GET principal con filtro 
     @GetMapping
-    public ResponseEntity<List<ProfesorDTO>> getAll() {
+    public ResponseEntity<List<ProfesorDTO>> getAll(@RequestParam(required = false) String nombre) {
+        if (nombre != null && !nombre.isEmpty()) {
+            return ResponseEntity.ok(service.getByNombre(nombre));
+        }
         return ResponseEntity.ok(service.getAll());
     }
 

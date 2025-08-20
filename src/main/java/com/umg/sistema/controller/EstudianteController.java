@@ -1,10 +1,9 @@
 package com.umg.sistema.controller;
 
 import com.umg.sistema.dto.EstudianteDTO;
+import com.umg.sistema.dto.EstudianteInputDTO;
 import com.umg.sistema.service.EstudianteService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.umg.sistema.entities.Estudiante;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,32 +12,42 @@ import java.util.List;
 @RequestMapping("/api/estudiantes")
 public class EstudianteController {
 
-    @Autowired
-    private EstudianteService service;
+    private final EstudianteService service;
 
-    @PostMapping
-    public ResponseEntity<EstudianteDTO> create(@RequestBody EstudianteDTO dto) {
-        return ResponseEntity.ok(service.create(dto));
-    }
-
-    @GetMapping("/{carnet}")
-    public ResponseEntity<EstudianteDTO> getById(@PathVariable String carnet) {
-        return ResponseEntity.ok(service.getById(carnet));
+    public EstudianteController(EstudianteService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<EstudianteDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+    public List<EstudianteDTO> getAll(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) String apellido) {
+
+        if (nombre != null && !nombre.isEmpty()) {
+            return service.filterByNombre(nombre);
+        } else if (apellido != null && !apellido.isEmpty()) {
+            return service.filterByApellido(apellido);
+        }
+        return service.getAll();
+    }
+
+    @GetMapping("/{carnet}")
+    public EstudianteDTO getById(@PathVariable String carnet) {
+        return service.getById(carnet);
+    }
+
+    @PostMapping
+    public EstudianteDTO create(@RequestBody EstudianteInputDTO dto) {
+    return service.create(dto);
     }
 
     @PutMapping("/{carnet}")
-    public ResponseEntity<EstudianteDTO> update(@PathVariable String carnet, @RequestBody EstudianteDTO dto) {
-        return ResponseEntity.ok(service.update(carnet, dto));
+    public EstudianteDTO update(@PathVariable String carnet, @RequestBody EstudianteInputDTO dto) {
+    return service.update(carnet, dto);
     }
 
     @DeleteMapping("/{carnet}")
-    public ResponseEntity<Void> delete(@PathVariable String carnet) {
+    public void delete(@PathVariable String carnet) {
         service.delete(carnet);
-        return ResponseEntity.noContent().build();
     }
 }

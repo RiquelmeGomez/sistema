@@ -1,27 +1,19 @@
 package com.umg.sistema.dto;
 
-public class EstudianteDTO {
+import java.time.LocalDate;
+
+public class EstudianteInputDTO {
     private String carnet;
     private String nombre;
     private String apellido;
-    private int edad; // calculada, se expone al cliente
+    private LocalDate fechaNacimiento;
 
-    public EstudianteDTO() {}
-
-    public EstudianteDTO(String carnet, String nombre, String apellido, int edad) {
-        this.carnet = carnet;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-    }
-
-    // Getters y setters
     public String getCarnet() { return carnet; }
     public void setCarnet(String carnet) { this.carnet = carnet; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getApellido() { return apellido; }
     public void setApellido(String apellido) { this.apellido = apellido; }
-    public int getEdad() { return edad; }
-    public void setEdad(int edad) { this.edad = edad; }
+    public LocalDate getFechaNacimiento() { return fechaNacimiento; }
+    public void setFechaNacimiento(LocalDate fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
 }

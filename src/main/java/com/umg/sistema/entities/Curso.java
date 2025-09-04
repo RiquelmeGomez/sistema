@@ -1,6 +1,7 @@
 package com.umg.sistema.entities;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cursos")
@@ -15,6 +16,10 @@ public class Curso {
 
     @Column(name = "creditos", nullable = false)
     private Integer creditos;
+
+    
+    @OneToMany(mappedBy = "curso")
+    private List<CursoAsignarse> cursosAsignarse;
 
     // Getters y setters
 

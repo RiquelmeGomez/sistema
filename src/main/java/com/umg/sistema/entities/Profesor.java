@@ -1,6 +1,7 @@
- package com.umg.sistema.entities;
-
+package com.umg.sistema.entities;
 import jakarta.persistence.*;
+import java.util.List;
+
 
 @Entity
 @Table(name = "profesor") 
@@ -15,6 +16,10 @@ public class Profesor {
 
     @Column(name = "correo", length = 100, nullable = false)
     private String correo;
+
+    // Relación con CursoAsignarse
+    @OneToMany(mappedBy = "profesor")
+    private List<CursoAsignarse> cursosAsignados;
 
     public String getCodigoProfesor() { return codigoProfesor; }
     public void setCodigoProfesor(String codigoProfesor) { this.codigoProfesor = codigoProfesor; }
